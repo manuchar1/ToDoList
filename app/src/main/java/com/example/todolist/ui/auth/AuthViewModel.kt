@@ -19,10 +19,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AuthViewModel(
-
-
-) : ViewModel() {
+class AuthViewModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     lateinit var context: Context
@@ -38,7 +35,6 @@ class AuthViewModel(
 
     private val _loginStatus = MutableLiveData<Event<Resource<AuthResult>>>()
     val loginStatus: LiveData<Event<Resource<AuthResult>>> = _loginStatus
-
 
 
     fun login(email: String, password: String) {

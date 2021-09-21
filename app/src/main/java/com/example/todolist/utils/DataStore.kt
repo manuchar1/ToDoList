@@ -3,9 +3,7 @@ package com.example.todolist.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.support.v4.media.session.MediaSessionCompat.KEY_TOKEN
 import com.example.todolist.utils.Constants.LOGIN_TOKEN
-import java.lang.RuntimeException
 import java.util.*
 
 object DataStore {

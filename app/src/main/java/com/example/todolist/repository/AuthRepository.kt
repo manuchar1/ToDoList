@@ -12,7 +12,6 @@ import kotlinx.coroutines.withContext
 
 class AuthRepository {
 
-
     private val auth = FirebaseAuth.getInstance()
     private val users = FirebaseFirestore.getInstance().collection("users")
 
@@ -40,5 +39,4 @@ class AuthRepository {
             }
         }
     }
-
 }
