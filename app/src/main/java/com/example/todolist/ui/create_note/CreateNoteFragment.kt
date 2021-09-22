@@ -14,7 +14,6 @@ import com.example.todolist.utils.EventObserver
 
 class CreateNoteFragment : Fragment() {
 
-
     private val viewModel: CreateNoteViewModel by viewModels()
     private lateinit var binding: CreateNoteFragmentBinding
 

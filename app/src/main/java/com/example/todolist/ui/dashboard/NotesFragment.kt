@@ -1,32 +1,29 @@
 package com.example.todolist.ui.dashboard
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.todolist.databinding.DashboardFragmentBinding
-import androidx.core.content.ContextCompat.getSystemService
 
-import android.view.inputmethod.InputMethodManager
-
-import android.graphics.Rect
-
-import android.widget.EditText
-
-import android.view.MotionEvent
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.R
+import com.example.todolist.ui.create_note.CreateNoteViewModel
+import kotlinx.coroutines.launch
 
 
-class DashboardFragment : Fragment() {
+class NotesFragment : Fragment() {
 
 
 
-    private lateinit var viewModel: DashboardViewModel
+    private val viewModel: NotesViewModel by viewModels()
     private lateinit var binding: DashboardFragmentBinding
+    private lateinit var notedApter: NoteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +41,15 @@ class DashboardFragment : Fragment() {
         binding.btnAddNotes.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_createNoteFragment)
         }
+        /*lifecycleScope.launch {
+            viewModel.pagingFlow.collect {
+                notedApter.submitData(it)
+            }
+        }*/
+
+        setupRecyclerView()
+
+
     }
 
 
@@ -67,6 +73,14 @@ class DashboardFragment : Fragment() {
             }
         }
     }*/
+
+
+
+    private fun setupRecyclerView() = binding.recyclerview.apply {
+        adapter = notedApter
+        layoutManager = GridLayoutManager(requireContext(),2)
+        itemAnimator = null
+    }
 
 
 }

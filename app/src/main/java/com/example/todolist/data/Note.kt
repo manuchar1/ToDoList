@@ -13,5 +13,7 @@ data class Note(
     val note: String = "",
     val date: Long = 0L,
     @get:Exclude var isLiked: Boolean = false,
+    @get:Exclude var isLiking: Boolean = false,
+    var likedBy: List<String> = listOf()
 
 ) : Serializable

@@ -5,8 +5,8 @@ import com.example.todolist.utils.Resource
 
 interface NotesRepository {
 
-    suspend fun createNote(title: String, note: String): Resource<Any>
+    suspend fun createNote(tittle: String, note: String): Resource<Any>
     suspend fun deleteNote(note: Note): Resource<Note>
     suspend fun updateNote(noteUpdate: NoteUpdate): Resource<Any>
-    suspend fun toggleLikeForNote(post: Note): Resource<Boolean>
+    suspend fun toggleDoneIconForNote(note: Note): Resource<Boolean>
 }
