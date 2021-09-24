@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,9 +26,12 @@
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
+            android:paddingStart="4dp"
+            android:layout_marginStart="6dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"
             android:text="Tittle"
+            android:textSize="18sp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/IbDone"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +44,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
             android:text="Note"
+            android:textSize="16sp"
+            android:paddingStart="4dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/IbDone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDate" />
@@ -47,8 +57,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginStart="6dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Date"
+            android:textSize="12sp"
+            android:paddingStart="4dp"
             app:layout_constraintEnd_toStartOf="@+id/IbDone"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

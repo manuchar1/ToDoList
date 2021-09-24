@@ -2,7 +2,7 @@ package com.example.todolist.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
@@ -11,12 +11,13 @@ import com.example.todolist.databinding.ItemNoteBinding
 import com.google.firebase.auth.FirebaseAuth
 
 
-class NoteAdapter () : RecyclerView.Adapter<NoteAdapter.CartViewHolder>() {
+class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
 
-    inner class CartViewHolder(private val binding: ItemNoteBinding) :
+
+    inner class ViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            val note = differ.currentList[absoluteAdapterPosition]
+            val note = getItem(absoluteAdapterPosition) ?: return
 
             itemView.apply {
                 binding.tvTitle.text = note.title
@@ -38,17 +39,28 @@ class NoteAdapter () : RecyclerView.Adapter<NoteAdapter.CartViewHolder>() {
                             if (!note.isLiking)
                                 click(note, layoutPosition)
 
+
                         }
                     }
-                    /*   btnDeleteOwnPost.setOnClickListener {
-                           onDeletePostClickListener?.let { click ->
-                               click(note)
+                    /* btnDeleteOwnPost.setOnClickListener {
+                         onNoteClickListener?.let { click ->
+                             click(note)
 
-                           }
-                       }*/
+                         }
+                     }*/
+
+                    setOnLongClickListener {
+                        onNoteClickListener?.let {
+                            it(note)
+                        }
+                        true
+
+                    }
 
                     setOnClickListener {
-                        onNoteClickListener?.let { it(note) }
+                        onNoteClickListener2?.let {
+                            it(note)
+                        }
                     }
 
                 }
@@ -59,17 +71,23 @@ class NoteAdapter () : RecyclerView.Adapter<NoteAdapter.CartViewHolder>() {
 
     private var onNoteClickListener: ((Note) -> Unit)? = null
 
+    private var onNoteClickListener2: ((Note) -> Unit)? = null
+
     private var onLikeClickListener: ((Note, Int) -> Unit)? = null
 
 
     private var onDeleteNoteClickListener: ((Note) -> Unit)? = null
 
 
-    //  private var onNoteClickListener: ((Post) -> Unit)? = null
+    //private var onNoteClickListener: ((Note) -> Unit)? = null
 
+
+    fun setOnNoteLongClickListener(listener: (Note) -> Unit) {
+        onNoteClickListener = listener
+    }
 
     fun setOnNoteClickListener(listener: (Note) -> Unit) {
-        onNoteClickListener = listener
+        onNoteClickListener2 = listener
     }
 
     fun setOnLikeClickListener(listener: (Note, Int) -> Unit) {
@@ -81,27 +99,13 @@ class NoteAdapter () : RecyclerView.Adapter<NoteAdapter.CartViewHolder>() {
         onDeleteNoteClickListener = listener
     }
 
-
-
-    private val differCallback = object : DiffUtil.ItemCallback<Note>() {
-        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    val differ = AsyncListDiffer(this, differCallback)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        return CartViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
             ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
 
     }
@@ -114,9 +118,15 @@ class NoteAdapter () : RecyclerView.Adapter<NoteAdapter.CartViewHolder>() {
     }
 
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    companion object : DiffUtil.ItemCallback<Note>() {
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem.id == newItem.id
+        }
 
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+    }
 
 }

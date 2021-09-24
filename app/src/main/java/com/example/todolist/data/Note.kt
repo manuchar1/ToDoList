@@ -9,7 +9,7 @@ data class Note(
     @get:Exclude var idr: Int? = null,
     val id: String = "",
     val authorUid: String = "",
-    val title: String = "",
+    var title: String = "",
     val note: String = "",
     val date: Long = 0L,
     @get:Exclude var isLiked: Boolean = false,

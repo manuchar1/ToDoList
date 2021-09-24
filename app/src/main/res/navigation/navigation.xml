@@ -49,10 +49,26 @@
             app:enterAnim="@anim/slide_in_bottom"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_bottom"/>
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="com.example.todolist.ui.create_note.CreateNoteFragment"
         android:label="create_note_fragment"
-        tools:layout="@layout/create_note_fragment" />
+        tools:layout="@layout/create_note_fragment" >
+        <action
+            android:id="@+id/action_createNoteFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.todolist.ui.details.DetailsFragment"
+        android:label="DetailsFragment" >
+        <argument
+            android:name="details"
+            app:argType="com.example.todolist.data.Note" />
+    </fragment>
 </navigation>
