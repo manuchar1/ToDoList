@@ -1,14 +1,16 @@
 package com.example.todolist.ui.dashboard
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.R
 import com.example.todolist.data.Note
 import com.example.todolist.databinding.ItemNoteBinding
-import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
 
 
 class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
@@ -16,6 +18,7 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
 
     inner class ViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind() {
             val note = getItem(absoluteAdapterPosition) ?: return
 
@@ -24,30 +27,18 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
                 binding.tvNote.text = note.note
                 binding.tvDate.text = note.date.toString()
 
-                val uid = FirebaseAuth.getInstance().uid!!
-                //  binding.btnDeleteOwnPost.isVisible = uid == post.authorUid
-                binding.IbDone.setImageResource(
-                    if (note.isLiked) {
-                        R.drawable.ic_check
-                    } else {
-                        R.drawable.ic_check_mark
-                    }
-                )
+
+                @RequiresApi(Build.VERSION_CODES.N)
+                @SuppressLint("SimpleDateFormat")
+
+                fun dateToCreateNote() {
+                    val simpleDateFormat = SimpleDateFormat("dd MMM yyyy")
+                    val dateString = simpleDateFormat.format(note.date)
+                    binding.tvDate.text = dateString
+                }
+                dateToCreateNote()
+
                 binding.apply {
-                    IbDone.setOnClickListener {
-                        onLikeClickListener?.let { click ->
-                            if (!note.isLiking)
-                                click(note, layoutPosition)
-
-
-                        }
-                    }
-                    /* btnDeleteOwnPost.setOnClickListener {
-                         onNoteClickListener?.let { click ->
-                             click(note)
-
-                         }
-                     }*/
 
                     setOnLongClickListener {
                         onNoteClickListener?.let {
@@ -66,20 +57,13 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
                 }
 
             }
+
         }
     }
 
     private var onNoteClickListener: ((Note) -> Unit)? = null
 
     private var onNoteClickListener2: ((Note) -> Unit)? = null
-
-    private var onLikeClickListener: ((Note, Int) -> Unit)? = null
-
-
-    private var onDeleteNoteClickListener: ((Note) -> Unit)? = null
-
-
-    //private var onNoteClickListener: ((Note) -> Unit)? = null
 
 
     fun setOnNoteLongClickListener(listener: (Note) -> Unit) {
@@ -90,14 +74,6 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
         onNoteClickListener2 = listener
     }
 
-    fun setOnLikeClickListener(listener: (Note, Int) -> Unit) {
-        onLikeClickListener = listener
-    }
-
-
-    fun setOnDeleteNoteClickListener(listener: (Note) -> Unit) {
-        onDeleteNoteClickListener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -105,18 +81,11 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
 
     }
-
-    private var onItemClickListener: ((Note) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Note) -> Unit) {
-        onItemClickListener = listener
-
-    }
-
 
     companion object : DiffUtil.ItemCallback<Note>() {
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
@@ -126,7 +95,5 @@ class NoteAdapter : PagingDataAdapter<Note, NoteAdapter.ViewHolder>(Companion) {
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id
         }
-
     }
-
 }

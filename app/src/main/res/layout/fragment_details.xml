@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.create_note.CreateNoteFragment">
+    tools:context=".ui.create_note.CreateNoteFragment"
+    android:background="@color/main_background">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -41,15 +42,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"
+        app:layout_goneMarginEnd="20dp"
         app:srcCompat="@drawable/ic_done" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        style="@style/EditTextStyle"
+        style="@style/EditTextStyle2"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="60dp"
         android:hint="Tittle"
-        app:layout_constraintEnd_toStartOf="@+id/btnDone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
@@ -65,7 +70,7 @@
         android:id="@+id/tilNote"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintBottom_toTopOf="@+id/tvLastModified"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="12dp"
@@ -87,7 +92,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvLastModified"
+        android:id="@+id/tvCreated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="created"
@@ -99,13 +104,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/tvLastModified"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Last time modified"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/montserrat_regular"
-        app:layout_constraintBottom_toTopOf="@+id/tvLastModified"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -113,12 +118,13 @@
         android:id="@+id/iconLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_logout"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginEnd="60dp"
+        app:srcCompat="@drawable/ic_logout" />
 
     <TextView
         android:id="@+id/btnLogout"

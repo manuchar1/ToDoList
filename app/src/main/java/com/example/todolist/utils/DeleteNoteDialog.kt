@@ -1,8 +1,7 @@
-package com.example.todolist.ui
+package com.example.todolist.utils
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import com.example.todolist.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

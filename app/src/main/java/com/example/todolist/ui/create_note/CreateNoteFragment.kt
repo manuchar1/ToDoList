@@ -11,14 +11,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.todolist.R
 import com.example.todolist.app.snackBar
 import com.example.todolist.databinding.CreateNoteFragmentBinding
 import com.example.todolist.utils.EventObserver
 
-class CreateNoteFragment : Fragment(),View.OnClickListener {
-
+class CreateNoteFragment : Fragment(), View.OnClickListener {
 
 
     private val viewModel: CreateNoteViewModel by viewModels()
@@ -50,8 +48,6 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
         }
         subscribeToObservers()
         dropDownEditText()
-
-
     }
 
     private fun dropDownEditText() {
@@ -74,17 +70,11 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
 
         viewModel.createNoteStatus.observe(viewLifecycleOwner, EventObserver(
             onError = {
-                //  binding.btnPublish.hideProgress(R.string.publish)
                 snackBar(it)
             },
-            onLoading = { /*showProgressButton(binding.btnPublish)*/ }
+            onLoading = { }
         ) {
-            //  binding.btnPublish.hideProgress(R.string.publish)
-            // findNavController().popBackStack()
-
-            snackBar("Success")
-            findNavController().navigate(R.id.action_createNoteFragment_to_notesFragment)
-
+            findNavController().popBackStack()
         })
     }
 
@@ -93,7 +83,6 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
             when (v.id) {
                 R.id.btnBack -> {
                     findNavController().popBackStack()
-                   // findNavController().navigate(R.id.action_createNoteFragment_to_dashboardFragment)
                     return
                 }
                 R.id.btnUp -> {
@@ -104,5 +93,4 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
             }
         }
     }
-
 }

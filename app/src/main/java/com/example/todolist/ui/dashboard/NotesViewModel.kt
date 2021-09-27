@@ -34,11 +34,6 @@ class NotesViewModel : ViewModel() {
         context = c
     }
 
-    private val _profileMeta = MutableLiveData<Event<Resource<User>>>()
-    val profileMeta: LiveData<Event<Resource<User>>> = _profileMeta
-
-    private val _doneNoteStatus = MutableLiveData<Event<Resource<Boolean>>>()
-    val likePostStatus: LiveData<Event<Resource<Boolean>>> = _doneNoteStatus
 
     private val _deleteNoteStatus = MutableLiveData<Event<Resource<Note>>>()
     val deleteNoteStatus: LiveData<Event<Resource<Note>>> = _deleteNoteStatus
@@ -52,16 +47,6 @@ class NotesViewModel : ViewModel() {
         return Pager(PagingConfig(PAGE_SIZE)) {
             pagingSource
         }.flow.cachedIn(viewModelScope)
-    }
-
-
-    fun toggleCheckIconForNote(note: Note) {
-        repository = NoteRepositoryImpl()
-        _doneNoteStatus.postValue(Event(Resource.Loading()))
-        viewModelScope.launch(dispatcher) {
-            val result = repository.toggleDoneIconForNote(note)
-            _doneNoteStatus.postValue(Event(result))
-        }
     }
 
 

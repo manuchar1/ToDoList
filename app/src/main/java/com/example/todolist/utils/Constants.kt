@@ -7,4 +7,6 @@ object Constants {
 
     const val LOGIN_TOKEN = "login_token"
     const val PAGE_SIZE = 1
+
+    var CHECK_SCROLLING_UP = false
 }

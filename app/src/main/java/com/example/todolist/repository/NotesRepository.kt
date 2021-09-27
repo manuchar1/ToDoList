@@ -8,7 +8,6 @@ interface NotesRepository {
 
     suspend fun createNote(tittle: String, note: String): Resource<Any>
     suspend fun deleteNote(note: Note): Resource<Note>
-    suspend fun updateNote(noteUpdate: NoteUpdate): Resource<Any>
-    suspend fun toggleDoneIconForNote(note: Note): Resource<Boolean>
-    suspend fun getUser(uid: String): Resource<User>
+    //suspend fun updateNote(noteUpdate: NoteUpdate): Resource<Any>
+
 }

@@ -12,7 +12,6 @@ import com.example.todolist.databinding.LoginFragmentBinding
 import com.example.todolist.app.showProgressButton
 import com.example.todolist.app.snackBar
 import com.example.todolist.app.spannableSentence
-import com.example.todolist.utils.DataStore
 import com.example.todolist.utils.EventObserver
 import com.github.razir.progressbutton.hideProgress
 import com.google.firebase.auth.ktx.auth
