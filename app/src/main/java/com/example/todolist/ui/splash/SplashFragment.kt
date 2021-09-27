@@ -13,36 +13,53 @@ import com.example.todolist.databinding.SplashFragmentBinding
 import com.example.todolist.utils.Constants
 import com.example.todolist.utils.Constants.LOGIN_TOKEN
 import com.example.todolist.utils.DataStore
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SplashFragment : Fragment() {
 
 
     private lateinit var viewModel: SplashViewModel
     private lateinit var binding: SplashFragmentBinding
+    private val auth = FirebaseAuth.getInstance()
+    private val firebase = Firebase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = SplashFragmentBinding.inflate(inflater,container,false)
+        binding = SplashFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        skipFragments()
         Handler().postDelayed({
         }, 3000)
-    }
+        // skipFragments()
 
 
-    private fun skipFragments() {
+        val user = Firebase.auth.currentUser
+        if (user != null) {
 
-        when (DataStore.token()) {
+            findNavController().navigate(R.id.action_splashFragment_to_navHostFragment)
+        } else {
 
-            "login" -> findNavController().navigate(R.id.action_splashFragment_to_dashboardFragment)
-            else -> findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
         }
 
+
     }
+
+
+    /*   private fun skipFragments() {
+
+           when (DataStore.token()) {
+
+               "login" -> findNavController().navigate(R.id.action_splashFragment_to_dashboardFragment)
+               else -> findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+           }
+
+       }*/
 }

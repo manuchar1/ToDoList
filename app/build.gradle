@@ -68,5 +68,8 @@ dependencies {
     // Paging 3
     implementation "androidx.paging:paging-runtime-ktx:3.0.0-alpha08"
 
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
+
 
 }

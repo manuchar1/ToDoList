@@ -26,6 +26,8 @@ class BottomSheet : BottomSheetDialogFragment() {
     var binding: BottomSheetFragmentBinding? = null
   //  private var onNoteClickListener: ((Note) -> Unit)? = null
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -23,8 +23,10 @@
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_splashFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            android:id="@+id/action_splashFragment_to_navHostFragment"
+            app:destination="@id/navHostFragment"
+            app:popUpTo="@id/navHostFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -35,40 +37,22 @@
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            android:id="@+id/action_loginFragment_to_navHostFragment"
+            app:destination="@id/navHostFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.todolist.ui.dashboard.NotesFragment"
-        android:label="dashboard_fragment"
-        tools:layout="@layout/dashboard_fragment" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_createNoteFragment"
-            app:destination="@id/createNoteFragment"
-            app:enterAnim="@anim/slide_in_bottom"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_bottom"/>
-        <action
-            android:id="@+id/action_dashboardFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/createNoteFragment"
-        android:name="com.example.todolist.ui.create_note.CreateNoteFragment"
-        android:label="create_note_fragment"
-        tools:layout="@layout/create_note_fragment" >
-        <action
-            android:id="@+id/action_createNoteFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+        android:id="@+id/navHostFragment"
+        android:name="com.example.todolist.ui.nav_host.NavHostFragment"
+        android:label="NavHostFragment" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.example.todolist.ui.details.DetailsFragment"
-        android:label="DetailsFragment" >
-        <argument
-            android:name="details"
-            app:argType="com.example.todolist.data.Note" />
-    </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/slide_in_bottom"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_bottom"/>
+
+    <include app:graph="@navigation/nav_graph" />
 </navigation>

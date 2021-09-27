@@ -83,7 +83,7 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
             // findNavController().popBackStack()
 
             snackBar("Success")
-            findNavController().navigate(R.id.action_createNoteFragment_to_dashboardFragment)
+            findNavController().navigate(R.id.action_createNoteFragment_to_notesFragment)
 
         })
     }
@@ -92,7 +92,8 @@ class CreateNoteFragment : Fragment(),View.OnClickListener {
         if (v != null) {
             when (v.id) {
                 R.id.btnBack -> {
-                    findNavController().navigate(R.id.action_createNoteFragment_to_dashboardFragment)
+                    findNavController().popBackStack()
+                   // findNavController().navigate(R.id.action_createNoteFragment_to_dashboardFragment)
                     return
                 }
                 R.id.btnUp -> {

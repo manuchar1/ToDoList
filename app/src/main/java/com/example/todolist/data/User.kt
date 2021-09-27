@@ -7,6 +7,5 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 data class User(
     val uid: String = "",
     val username: String = "",
-  //  val profilePictureUrl: String = DEFAULT_PROFILE_PICTURE_URL,
     val description: String = "",
 )

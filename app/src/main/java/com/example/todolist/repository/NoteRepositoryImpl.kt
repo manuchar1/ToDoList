@@ -48,50 +48,57 @@ class NoteRepositoryImpl : NotesRepository {
     }
 
 
+    override suspend fun updateNote(noteUpdate: NoteUpdate) = withContext(Dispatchers.IO) {
+        safeCall {
+            val map = mutableMapOf(
+              //  "authorUid" to noteUpdate.authorUid,
+             //   "tittle" to noteUpdate.title,
+                "id" to noteUpdate.authorUid,
+                "note" to noteUpdate.note,
+                "date" to noteUpdate.date
+            )
+            //    notes.document(noteUpdate.tittle).update(map.toMap()).await()
+            // notes.document(noteUpdate.note).update(map.toMap()).await()
+            notes.document(noteUpdate.authorUid.toString()).update(map.toMap()).await()
+            Resource.Success(Any())
 
-
-    override suspend fun updateNote(noteUpdate: NoteUpdate): Resource<Any> {
-        TODO("Not yet implemented")
+        }
     }
 
 
-
-    override suspend fun getUser(uid: String)= withContext(Dispatchers.IO) {
+    override suspend fun getUser(uid: String) = withContext(Dispatchers.IO) {
         safeCall {
             val user = users.document(uid).get().await().toObject(User::class.java)
                 ?: throw IllegalStateException()
             val currentUid = FirebaseAuth.getInstance().uid!!
             val currentUser = users.document(currentUid).get().await().toObject(User::class.java)
                 ?: throw IllegalStateException()
-         //   user.isFollowing = uid in currentUser.follows
+            //   user.isFollowing = uid in currentUser.follows
             Resource.Success(user)
         }
     }
 
 
+    override suspend fun toggleDoneIconForNote(note: Note) = withContext(Dispatchers.IO) {
+        safeCall {
+            var isLiked = false
+            fireStore.runTransaction { transaction ->
+                FirebaseAuth.getInstance().uid!!
+                transaction.get(notes.document(note.id))
+                isLiked = true
+                /*        val currentLikes = postResult.toObject(Note::class.java)?.likedBy ?: listOf()
+                        //   isLiked = true
+                        transaction.update(
+                            notes.document(note.id),
+                            "likedBy",
+                            if (uid in currentLikes) currentLikes - uid else {
+                                isLiked = true
+                                currentLikes + uid
+                            }
+                        )*/
 
-
-
-
-     override suspend fun toggleDoneIconForNote(note: Note)= withContext(Dispatchers.IO) {
-         safeCall {
-             var isLiked = false
-             fireStore.runTransaction { transaction ->
-                 val uid = FirebaseAuth.getInstance().uid!!
-                 val postResult = transaction.get(notes.document(note.id))
-                 val currentLikes = postResult.toObject(Note::class.java)?.likedBy ?: listOf()
-              //   isLiked = true
-                 transaction.update(
-                     notes.document(note.id),
-                     "likedBy",
-                     if (uid in currentLikes) currentLikes - uid else {
-                         isLiked = true
-                         currentLikes + uid
-                     }
-                 )
-
-             }.await()
-             Resource.Success(isLiked)
-         }
-     }
+            }.await()
+            Resource.Success(isLiked)
+        }
+    }
 }

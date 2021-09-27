@@ -37,6 +37,7 @@ class AuthViewModel : ViewModel() {
     val loginStatus: LiveData<Event<Resource<AuthResult>>> = _loginStatus
 
 
+
     fun login(email: String, password: String) {
         repository = AuthRepository()
         if (email.isEmpty() || password.isEmpty()) {

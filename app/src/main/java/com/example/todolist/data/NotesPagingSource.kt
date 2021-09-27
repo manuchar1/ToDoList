@@ -29,12 +29,11 @@ class NotesPagingSource(
                 .await()
 
             LoadResult.Page(
-                curPage.toObjects(Note::class.java).onEach { post ->
-                    val user = db.collection("users").document(uid).get().await().toObject(User::class.java)!!
-                    post.date
-                    post.authorUid
-                    post.title
-                    post.note
+                curPage.toObjects(Note::class.java).onEach { note ->
+                    note.date
+                    note.authorUid
+                    note.title
+                    note.note
                 },
                 null,
                 nextPage

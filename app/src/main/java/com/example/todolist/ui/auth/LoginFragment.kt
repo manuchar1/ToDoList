@@ -15,6 +15,8 @@ import com.example.todolist.app.spannableSentence
 import com.example.todolist.utils.DataStore
 import com.example.todolist.utils.EventObserver
 import com.github.razir.progressbutton.hideProgress
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {
 
@@ -49,7 +51,13 @@ class LoginFragment : Fragment() {
 
         }
 
-        subscribeToObservers()
+        val user = Firebase.auth.currentUser
+        if (user == null) {
+
+            subscribeToObservers()
+        }
+
+
     }
 
 
@@ -64,13 +72,13 @@ class LoginFragment : Fragment() {
             ) {
             binding.btnLogin.hideProgress(R.string.login)
 
-            DataStore.saveToken("login")
+            //   DataStore.saveToken("login")
 
 
             /*    sharedPreferences = UserPreference(requireContext())
                 sharedPreferences.saveUserSession(true)
                 sharedPreferences.saveToken("login")*/
-            findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_navHostFragment)
 
         })
 
